@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -19,7 +19,7 @@ func handle(rw http.ResponseWriter, r *http.Request) {
 	rr.Method = r.Method
 	rr.Headers = r.Header
 	rr.URL = r.URL.String()
-	rr.Body, err = ioutil.ReadAll(r.Body)
+	rr.Body, err = io.ReadAll(r.Body)
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusInternalServerError)
 		return
